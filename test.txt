@@ -1,0 +1,490 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Хост: 127.0.0.1:3306
+-- Время создания: Мар 26 2022 г., 10:11
+-- Версия сервера: 5.7.33
+-- Версия PHP: 7.4.27
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `dda-russia`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `courses`
+--
+
+CREATE TABLE `courses` (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT 'id курса',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Название курса',
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Описание курса',
+  `price` int(11) NOT NULL COMMENT 'Цена курса',
+  `date` int(11) NOT NULL COMMENT 'Дата окончания курса',
+  `tag` int(11) NOT NULL DEFAULT '2' COMMENT 'tag курса'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `courses`
+--
+
+INSERT INTO `courses` (`id`, `title`, `description`, `price`, `date`, `tag`) VALUES
+(17, 'Работа с микроскопом', '1 урок. Методика безопасного извлечения фрагментов инструментов\r\n2 урок. Использование микроскопа ZEISS на терапевтическом и ортопедическом приеме врача стоматолога\r\n3 урок. Диагностические ловушки в эндодонтии. Влияние визуализации на клиническое решение и прогноз\r\n4 урок. Виниры.Планирование, препарирование, фиксация', 15000, 1632700800, 3),
+(18, 'Навигационная хирургия', '1 урок. Сканирование зубного ряда и одномоментное моделирование хирургического шаблона\r\n2 урок. современные тенденции в навигационной хирургии (Часть 1)\r\n3 урок. современные тенденции в навигационной хирургии (Часть 2)\r\n4 урок. Цифровое планирование дентальной имплантации\r\n5 урок. Цифровое планирование направленной костной регенерации в стоматологии\r\n6 урок. 3diagnosys + Plastycad. Дополнительные возможности программы\r\n7 урок. 3diagnosys + Plastycad. Создание простых хирургических шаблонов\r\n8 урок. 3diagnosys + Plastycad. Создание хирургических шаблонов при полной адентии\r\n9 урок. Введение в навигационную хирургию (RealGuide)', 15000, 1900000000, 3),
+(19, 'HyperDENT', '1 урок. HyperDENT V9.1\r\n2 урок. hyperDENT. Базовый курс\r\n3 урок. HyperDent.Работа с металлом. Балки с уровня имплантата и мультиюнитов.\r\n4 урок. Вебинар-дискуссия (Роман Кочарян и Максим Токаренко) hyperDENT. HyperDent.Работа с металлом. Балки с уровня имплантата и мультиюнитов', 15000, 1633996800, 3),
+(20, 'EXOCAD', '1 урок. Exocad. Базовый\r\n2 урок. EXOCAD. EXPERT. Планирование Wax up. Цифровой протокол\r\n3 урок. EXOCAD. EXPERT. Горячие клавиши, фишки. Скрытые возможности\r\n4 урок. Exocad. Окклюзионные шины по стандартным и индивидуальным параметрам\r\n5 урок. Моделирование окклюзионных шин в Exocad (продолжение)\r\n6 урок. Работа с имплантатами в EXOCAD\r\n7 урок. EXOCAD.EXPERT. Изготовление балки на имплантатх', 15000, 1635379200, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `courses_contents`
+--
+
+CREATE TABLE `courses_contents` (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT 'id темы курса',
+  `courses_id` int(11) NOT NULL COMMENT 'id курса',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Название темы',
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Описание темы',
+  `link` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Ссылка на видео',
+  `position` int(11) NOT NULL COMMENT 'Позиция темы',
+  `date` int(11) NOT NULL COMMENT 'Дата окончания',
+  `subscription` int(11) NOT NULL DEFAULT '1' COMMENT 'Подписка:1-Стандарт;2-Премиум'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `courses_contents`
+--
+
+INSERT INTO `courses_contents` (`id`, `courses_id`, `title`, `description`, `link`, `position`, `date`, `subscription`) VALUES
+(3, 2, 'Тестовый урок', 'Тест', '531928883', 1, 1618358400, 0),
+(26, 15, 'Технология изготовления съёмных протезов методом фрезерования', 'Базовый курс', '612826776', 1, 1693699200, 0),
+(27, 15, 'Моделирование съемного протеза в 3Shape и EXOCAD Продвинутый курс', 'Базовый курс', '612825858', 2, 1693699200, 0),
+(28, 16, 'Инновационные технологии отбеливания зубов', 'Базовый курс', '612853289', 2, 1678320000, 0),
+(29, 17, 'Методика безопасного извлечения фрагментов инструментов', 'Базовый курс', '612849925?h=d91bf682f5', 1, 1678320000, 2),
+(30, 17, 'Использование микроскопа ZEISS на терапевтическом и ортопедическом приеме врача стоматолога', 'Базовый курс', '612846024?h=3cdbf518fa', 2, 1678320000, 1),
+(31, 17, 'Диагностические ловушки в эндодонтии. Влияние визуализации на клиническое решение и прогноз', 'Базовый курс', '612845516?h=cc5da68fac', 3, 1678320000, 0),
+(32, 17, 'Виниры.Планирование, препарирование, фиксация', 'Базовый курс', '612842174?h=6e1ab1de3e', 4, 1678320000, 0),
+(33, 18, 'Сканирование зубного ряда и одномоментное моделирование хирургического шаблона', 'Базовый курс', '612800726?h=18a3912a5c', 1, 1900000000, 2),
+(34, 18, 'современные  тенденции в навигационной хирургии (Часть 1)', 'Базовый курс', '612805225?h=a2d48fca34', 2, 1900000000, 2),
+(35, 18, 'современные  тенденции в навигационной хирургии (Часть 2)', 'Базовый курс', '612805851?h=5ad6a6f023', 3, 1900000000, 2),
+(36, 18, 'Цифровое планирование дентальной имплантации', 'Базовый курс', '612806046?h=e34a721fc2', 4, 1900000000, 1),
+(37, 18, 'Цифровое планирование направленной костной регенерации в стоматологии', 'Базовый курс', '612809087?h=b0d8543468', 5, 1900000000, 1),
+(38, 18, '3diagnosys + Plastycad. Дополнительные возможности программы', 'Базовый курс', '612810658?h=dc6c619614', 6, 1900000000, 1),
+(39, 18, '3diagnosys + Plastycad. Создание простых хирургических шаблонов', 'Базовый курс', '612814124?h=1d29c2a83d', 7, 1900000000, 1),
+(40, 18, '3diagnosys + Plastycad. Создание хирургических шаблонов при полной адентии', 'Базовый курс', '612818729?h=8896e3cd83', 8, 1900000000, 1),
+(41, 18, 'Введение в навигационную хирургию (RealGuide)', 'Базовый курс', '612821549?h=f072329a70', 9, 1900000000, 1),
+(42, 19, 'HyperDENT V9.1', 'Базовый курс', '612487665?h=d81c3801d8', 1, 1662768000, 1),
+(43, 19, 'hyperDENT. Базовый курс', 'Базовый курс', '612490787?h=e7c41d5e3e', 2, 1660089600, 1),
+(44, 19, 'HyperDent.Работа с металлом. Балки с уровня имплантата и мультиюнитов.', 'Базовый курс', '612494506?h=91b9e7abcb', 3, 1641772800, 1),
+(45, 19, 'Вебинар-дискуссия (Роман Кочарян и Максим Токаренко) hyperDENT. HyperDent.Работа с металлом. Балки с уровня имплантата и мультиюнитов', 'Базовый курс', '612498768?h=0a0806808d', 4, 1657411200, 1),
+(46, 20, 'EXOCAD. EXPERT. Горячие клавиши, фишки. Скрытые возможности', 'Горячие клавиши \r\n фишки\r\nСкрытые возможности', '612753756?h=2e74d8bdbc', 4, 1665187200, 1),
+(47, 20, 'EXOCAD. EXPERT. Планирование Wax up. Цифровой протокол', 'Моделирование тотала WAX-UP\r\n работа в виртуальном артикуляторе \r\nкорректировка файлов моделей\r\n создание модели для 3D печати.', '612756479?h=a521e586f2', 3, 1665187200, 1),
+(48, 20, 'Exocad. Базовый', 'Включение программы.\r\nВнесение информации в заказ-наряд.\r\nСоздание колпочка и полноанатомической коронки.\r\nПолучение STL конструкции для фрезерования.', '612775786?h=01f0e115cf', 2, 1665187200, 1),
+(49, 20, 'Exocad. Окклюзионные шины по стандартным и индивидуальным параметрам', 'Моделирование Окклюзионные шины по стандартным и индивидуальным параметрам', '612779051?h=4acffb6f6b', 4, 1660089600, 1),
+(50, 20, 'EXOCAD.EXPERT. Изготовление балки на имплантатх', 'Планирование работы \r\nСоздание заказ-наряда\r\nмоделирование балки\r\nвыбор профиля балки\r\nустановка замков.', '612780213?h=69d58c3a02', 5, 1665187200, 2),
+(51, 20, 'Моделирование окклюзионных шин в Exocad (продолжение)', 'Базовый курс', '612781035?h=17bb14e78b', 4, 1662768000, 2),
+(52, 20, 'Работа с имплантатами в EXOCAD', 'Установка библиотеки имплантатов\r\n правильное заполнение заказ-наряда для работ на имплантах\r\nвиды работ на имплантах\r\nВыбор сканмаркера\r\nмоделирование', '612781760?h=c2c372b69d', 4, 1696377600, 2),
+(53, 18, 'werwer', 'sdf sdf dsfsd fs ds f', '2345353', 10, 1658448000, 2),
+(54, 18, '123123', 'пра прпар ар апр апр а', '1231231231', 11, 1649462400, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2021_03_19_092522_create_users_table', 1),
+(2, '2021_03_24_201348_create_supports_table', 1),
+(3, '2021_03_24_203419_create_support_messages_table', 1),
+(4, '2021_03_24_204128_create_courses_table', 1),
+(5, '2021_03_24_204539_create_courses_contents_table', 1),
+(6, '2021_03_24_205220_create_my_courses_table', 1),
+(7, '2021_05_28_081745_create_webinar_table', 2),
+(8, '2021_05_28_081856_create_my_webinar_table', 2),
+(15, '2021_08_10_054229_add_tag_webinar_table', 3),
+(16, '2021_08_10_131138_add_default_image_user_table', 3),
+(17, '2021_08_12_094530_add_column_date_add_date_update_my_webinars_table', 3),
+(18, '2021_08_12_101701_add_column_date_add_date_update_my_courses_table', 3),
+(19, '2021_08_16_123016_add_column_block_status_users_table', 3),
+(20, '2021_08_20_104814_create_subscribe_table', 3),
+(21, '2021_08_31_104230_add_tag_courses_table', 3),
+(23, '2022_03_20_140324_create_col_courses', 4),
+(24, '2022_03_21_013931_create_cols_subscribe', 5),
+(25, '2022_03_21_172744_rename_col_sub_scrible', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `my_courses`
+--
+
+CREATE TABLE `my_courses` (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT 'id активного курса',
+  `courses_id` int(11) NOT NULL COMMENT 'id курса',
+  `user_id` int(11) NOT NULL COMMENT 'id юзера',
+  `status` int(11) NOT NULL COMMENT '0 - Доступ не оплачен, 1 - Доступ оплачен',
+  `deadline` int(11) NOT NULL COMMENT 'Дата окончания доступы',
+  `date_update` int(11) NOT NULL DEFAULT '0' COMMENT 'дата обновления статуса вебинара'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `my_courses`
+--
+
+INSERT INTO `my_courses` (`id`, `courses_id`, `user_id`, `status`, `deadline`, `date_update`) VALUES
+(27, 20, 2, 0, 0, 1633511193),
+(28, 17, 2, 0, 0, 1633511227),
+(29, 17, 5, 1, 0, 1634530223),
+(30, 20, 5, 0, 0, 1634539649),
+(33, 18, 2, 1, 0, 1900000000);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `my_webinar`
+--
+
+CREATE TABLE `my_webinar` (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT 'id активного вебинара',
+  `webinar_id` bigint(20) UNSIGNED NOT NULL COMMENT 'id вебинара',
+  `user_id` bigint(20) UNSIGNED NOT NULL COMMENT 'id юзера',
+  `status` int(11) NOT NULL COMMENT '0 - Доступ не оплачен, 1 - Доступ оплачен',
+  `deadline` int(11) NOT NULL COMMENT 'Дата окончания доступа',
+  `date_update` int(11) NOT NULL DEFAULT '0' COMMENT 'дата обновления статуса вебинара'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `my_webinar`
+--
+
+INSERT INTO `my_webinar` (`id`, `webinar_id`, `user_id`, `status`, `deadline`, `date_update`) VALUES
+(22, 10, 5, 1, 1634925300, 1634539676),
+(23, 10, 2, 0, 1634925300, 1634659180),
+(24, 11, 2, 0, 1632765660, 1634659204),
+(25, 10, 2, 0, 1634925300, 1634659232),
+(26, 11, 2, 0, 1632765660, 1634659250),
+(27, 11, 2, 0, 1632765660, 1634659263),
+(28, 11, 2, 0, 1632765660, 1634659359),
+(29, 11, 2, 0, 1632765660, 1634659562),
+(30, 12, 2, 1, 1632765780, 1634660138),
+(31, 13, 2, 0, 1632765900, 1634660182),
+(32, 14, 2, 1, 1632765960, 1647760267);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `subscribe`
+--
+
+CREATE TABLE `subscribe` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL COMMENT 'id юзера',
+  `subscribe` int(11) NOT NULL DEFAULT '1' COMMENT 'Подписка: 1 - default, 2 - standard, 3 - master, 4 - adventure',
+  `ending` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Дата окончания подписки',
+  `company` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Компания',
+  `fullname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ФИО',
+  `telephone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Телефон',
+  `path_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Вложение',
+  `enabled` int(11) NOT NULL DEFAULT '0' COMMENT '1-активно'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `subscribe`
+--
+
+INSERT INTO `subscribe` (`id`, `user_id`, `subscribe`, `ending`, `company`, `fullname`, `telephone`, `path_file`, `enabled`) VALUES
+(2, 2, 1, 1679443200, NULL, NULL, NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `supports`
+--
+
+CREATE TABLE `supports` (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT 'id обращения',
+  `user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'id пользователя',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Тема обращения',
+  `status` int(11) NOT NULL COMMENT '0 - без ответа, 1 - с ответом, 2 - Закрыто',
+  `date` int(11) NOT NULL COMMENT 'Дата создания обращения'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `supports`
+--
+
+INSERT INTO `supports` (`id`, `user_id`, `title`, `status`, `date`) VALUES
+(2, '2', 'Проверил тест Игорь', 2, 1617700416),
+(3, '2', 'не открывается курс', 2, 1621762322),
+(4, '2', 'test', 2, 1626174543);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `support_messages`
+--
+
+CREATE TABLE `support_messages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `support_id` int(11) NOT NULL COMMENT 'id обращения',
+  `user_id` int(11) NOT NULL COMMENT 'id пользователя',
+  `message` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Сообщение пользователя',
+  `date` int(11) NOT NULL COMMENT 'Дата сообщения'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `support_messages`
+--
+
+INSERT INTO `support_messages` (`id`, `support_id`, `user_id`, `message`, `date`) VALUES
+(6, 2, 2, 'Проверил тест Игорь', 1617700416),
+(7, 2, 2, 'тест', 1617700432),
+(8, 2, 1, 'Принято', 1617700486),
+(9, 2, 2, 'Пошёл от сюда', 1618075521),
+(10, 2, 1, 'Спасибо за обращение', 1618075592),
+(11, 3, 2, 'оплатил. но курс смотреть не могу', 1621762322),
+(12, 3, 1, 'устранили', 1621762392),
+(13, 4, 2, 'test', 1626174543),
+(14, 4, 1, 'ntvn', 1626174584),
+(15, 4, 2, 'sdfsdf', 1626174592),
+(16, 4, 1, 'dddd', 1626174599);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT 'id пользователя',
+  `login` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'имя пользователя',
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email пользователя',
+  `surname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Фамилия пользователя',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Имя пользователя',
+  `patronymic` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Отчество пользователя',
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'пароль пользователя',
+  `balance` int(11) NOT NULL COMMENT 'Баланс пользователя',
+  `group` int(11) NOT NULL COMMENT '1 - Админ, 2 - Меренджер, 3 - Пользователь',
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Аватар пользователя',
+  `block` int(11) NOT NULL DEFAULT '0' COMMENT 'блокировка пользователя, 0 - активен, 1 - заблокирован'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `login`, `email`, `surname`, `name`, `patronymic`, `password`, `balance`, `group`, `image`, `block`) VALUES
+(1, 'admin', 'admin@admin.ru', 'Adminov', 'Admin', 'Adminovich', 'ee11cbb19052e40b07aac0ca060c23ee', 0, 1, 'user1.png', 0),
+(2, 'user', 'user@user.ru', 'Userov', 'User', 'Userovich', 'ee11cbb19052e40b07aac0ca060c23ee', 99921000, 3, 'user2.jpg', 0),
+(5, 'badevent', 'makarovee98@gmail.com', 'Макаров', 'Евгений', 'Евгеньевич', 'ee11cbb19052e40b07aac0ca060c23ee', 40000, 3, 'default.jpg', 0),
+(7, '777', 'i.mokin007@gmail.com', 'Игорь', 'Игорь', 'А', 'ee11cbb19052e40b07aac0ca060c23ee', 0, 3, 'default.jpg', 0),
+(8, 'Marta', 'hoxoj27606@ofenbuy.com', 'Blamour', 'Marta', '123', 'ee11cbb19052e40b07aac0ca060c23ee', 0, 2, 'default.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `webinar`
+--
+
+CREATE TABLE `webinar` (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT 'id вебинара',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Название вебинара',
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Описание вебинара',
+  `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Контент вебинара',
+  `price` int(11) NOT NULL COMMENT 'Цена вебинара',
+  `date` int(11) NOT NULL COMMENT 'Дата окончания вебинара',
+  `tag` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '2' COMMENT 'tag вебинара'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `webinar`
+--
+
+INSERT INTO `webinar` (`id`, `title`, `description`, `content`, `price`, `date`, `tag`) VALUES
+(9, 'Моделирование съемного протеза в 3Shape и EXOCAD. Продвинутый курс', 'Базовый', '612825858?h=b22ccc7066', 2000, 1634320200, '2'),
+(10, 'Технология изготовления съёмных протезов методом фрезерования и печати', 'Базовый', '612826776?h=2feb3fed34', 2000, 1634925300, '2'),
+(11, 'Отбеливание зубов', 'Базовый', '612853289?h=6a59a1243c', 2000, 1632765660, '2'),
+(12, 'Ортодонтическое  лечение', 'базовый', '612822484?h=7ac85ee17d', 2000, 1632765780, '2'),
+(13, 'Как повысить прибыльность клиники. Статистические показатели и работа с ними', 'Базовый', '612452191?h=5d175718d8', 2000, 1632765900, '2'),
+(14, 'Переход лаборатории в цифру', 'Базовый', '612453406?h=3ce5536990', 2000, 1632765960, '2'),
+(15, 'SUM3D. Базовый', 'Базовый', '612714219?h=9e49175298', 2000, 1632766020, '2'),
+(16, 'SUM3D. Настройка Millbox', 'Базовый', '612744135?h=39b72a12e4', 2000, 1632766080, '2'),
+(17, 'Go2Dental. Базовый курс', 'Базовый', '612792181?h=60974c9313', 2000, 1632766140, '2'),
+(18, 'Цифровой протокол CEREC. Возможности современного программного обеспечения для врача стоматолога -', 'Базовый', '612748342?h=f9eac14dd4', 2000, 1632766200, '2'),
+(19, '3 Shape базовый курс', 'Базовый', '612782877?h=053c1697cf', 2000, 1632766260, '2'),
+(20, '3Д сканер сравнительный анализ', 'Базовый', '612787498?h=a8b710ea10', 2000, 1632766320, '2'),
+(21, 'работа с интраоральным сканером в клинике', 'Базовый', '612790963?h=0a634b8dc7', 2000, 1632766380, '2');
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `courses_contents`
+--
+ALTER TABLE `courses_contents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `my_courses`
+--
+ALTER TABLE `my_courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `my_webinar`
+--
+ALTER TABLE `my_webinar`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `my_webinar_webinar_id_foreign` (`webinar_id`);
+
+--
+-- Индексы таблицы `subscribe`
+--
+ALTER TABLE `subscribe`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subscribe_user_id_foreign` (`user_id`);
+
+--
+-- Индексы таблицы `supports`
+--
+ALTER TABLE `supports`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `support_messages`
+--
+ALTER TABLE `support_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `webinar`
+--
+ALTER TABLE `webinar`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id курса', AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT для таблицы `courses_contents`
+--
+ALTER TABLE `courses_contents`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id темы курса', AUTO_INCREMENT=55;
+
+--
+-- AUTO_INCREMENT для таблицы `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT для таблицы `my_courses`
+--
+ALTER TABLE `my_courses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id активного курса', AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT для таблицы `my_webinar`
+--
+ALTER TABLE `my_webinar`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id активного вебинара', AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT для таблицы `subscribe`
+--
+ALTER TABLE `subscribe`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `supports`
+--
+ALTER TABLE `supports`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id обращения', AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `support_messages`
+--
+ALTER TABLE `support_messages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id пользователя', AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT для таблицы `webinar`
+--
+ALTER TABLE `webinar`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id вебинара', AUTO_INCREMENT=22;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `my_webinar`
+--
+ALTER TABLE `my_webinar`
+  ADD CONSTRAINT `my_webinar_webinar_id_foreign` FOREIGN KEY (`webinar_id`) REFERENCES `webinar` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `subscribe`
+--
+ALTER TABLE `subscribe`
+  ADD CONSTRAINT `subscribe_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
