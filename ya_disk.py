@@ -18,10 +18,8 @@ class YaUploader:
 
 if __name__ == '__main__':
     path_to_file = 'test.txt'
-    token = 'AQAAAAAvigESAADLW_SDgmkCJUIuq3-AUBI_m-Y'
+    token = ''  #Токен для яндекс диск API
     uploader = YaUploader(token)
     result = uploader.upload(path_to_file)
 
     print(result)
-
-#2.3/search/advanced?fromdate=1653004800&order=desc&min=1653177600&sort=activity&tagged=Python&site=stackoverflow
